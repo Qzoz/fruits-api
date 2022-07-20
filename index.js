@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/api/article', require('./routes/article-routes'));
+app.use('/api', require('./routes/routes'));
 
 app.listen(PORT, () => {
 	console.log(`App is running on port: ${PORT}`);

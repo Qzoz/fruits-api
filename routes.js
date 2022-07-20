@@ -1,5 +1,9 @@
-const router = require('express').Router();
-const FruitsArticleController = require('../controllers/fruits-article-controller');
+import { Router } from 'express';
+import FruitsArticleController from './controllers/fruits-article-controller.js';
+
+const router = Router();
+
+router.get('/article/init', FruitsArticleController.init);
 
 router.get('/article', FruitsArticleController.getAll);
 
@@ -11,4 +15,4 @@ router.put('/article/:id', FruitsArticleController.update);
 
 router.delete('/article/:id', FruitsArticleController.delete);
 
-module.exports = router;
+export default router;

@@ -1,10 +1,13 @@
-let fs = require('fs');
-let path = require('path');
-let DataErrorGen = require('./../db-data-error/db-data-error');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import DataErrorGen from '../../misc/db-data-error.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const FILE_NAME = path.join(__dirname, 'fruits-article.json');
 
-module.exports = {
+export default {
 	readJSON: function () {
 		try {
 			const fileContent = fs.readFileSync(FILE_NAME).toString();
@@ -14,5 +17,13 @@ module.exports = {
 			return DataErrorGen.generateError(error);
 		}
 	},
-	writeJSON: function (jsonInput) {},
+	writeJSON: function (jsonInput) {
+		try {
+			const jsonString = JSON.stringify(jsonInput);
+			fs.writeFileSync(FILE_NAME, jsonString);
+			return DataErrorGen.generateData({ fileUpdated: true });
+		} catch (error) {
+			return DataErrorGen.generateError(error);
+		}
+	},
 };

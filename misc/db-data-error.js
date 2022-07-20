@@ -1,6 +1,15 @@
 const DATA_KEY = 'data';
 const ERROR_KEY = 'error';
-module.exports = {
+export default {
+	getControllerData: function (data) {
+		return [null, data];
+	},
+	getControllerError: function (error, message) {
+		if (!error && message) {
+			error = this.generateError(message);
+		}
+		return [error, null];
+	},
 	getData: function (input) {
 		return input[DATA_KEY];
 	},
@@ -13,7 +22,7 @@ module.exports = {
 		};
 	},
 	generateError: function (error) {
-		const message = error ? error.message : null;
+		const message = error ? (typeof error === 'string' ? error : error.message) : null;
 		return {
 			[ERROR_KEY]: {
 				message,

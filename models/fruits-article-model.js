@@ -4,6 +4,7 @@ import FruitsArticleDB from './../db/fruits-article/fruits-article-db.js';
 import DataErrorGen from '../misc/db-data-error.js';
 
 const ID_KEY = '_id';
+const DATA_LIMIT = 100;
 
 export default {
 	initialize: function () {
@@ -54,12 +55,16 @@ export default {
 		if (!data) {
 			data = [];
 		}
-		data.push(article);
-		const writtenOrError = FruitsArticleDB.writeJSON(data);
-		if (DataErrorGen.hasError(writtenOrError)) {
-			return DataErrorGen.getControllerError(writtenOrError);
+		if (data.length < DATA_LIMIT) {
+			data.push(article);
+			const writtenOrError = FruitsArticleDB.writeJSON(data);
+			if (DataErrorGen.hasError(writtenOrError)) {
+				return DataErrorGen.getControllerError(writtenOrError);
+			}
+			return DataErrorGen.getControllerData(article);
+		} else {
+			return DataErrorGen.getControllerError(null, `Maximum limit of Articles: ${DATA_LIMIT}`);
 		}
-		return DataErrorGen.getControllerData(article);
 	},
 	updateArticle: function (id, article) {
 		const dataOrError = FruitsArticleDB.readJSON();

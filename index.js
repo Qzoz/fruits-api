@@ -8,11 +8,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.json());
-app.use(
-	cors({
-		origin: '*',
-	})
-);
+app.use(cors());
 app.use('/api', routes);
 
 app.listen(PORT, () => {

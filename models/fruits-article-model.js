@@ -31,7 +31,7 @@ export default {
 		if (DataErrorGen.hasError(dataOrError)) {
 			return DataErrorGen.getControllerError(dataOrError);
 		}
-		return DataErrorGen.getControllerData(dataOrError);
+		return DataErrorGen.getControllerData(DataErrorGen.getData(dataOrError));
 	},
 	getArticleById: function (id) {
 		const dataOrError = FruitsArticleDB.readJSON();

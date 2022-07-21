@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 app.use(
 	cors({
 		origin: '*',
-		optionsSuccessStatus: 200,
 	})
 );
 app.use('/api', routes);

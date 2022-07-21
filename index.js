@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
 	cors({
-		origin: false,
+		origin: '*',
 		optionsSuccessStatus: 200,
 	})
 );
